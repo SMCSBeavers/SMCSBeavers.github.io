@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <title>Stanley Mohr</title>
+    <style>
+        body {
+            background-color: #222629;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+
+        .nav-icon {
+            border-radius: 50%;
+            height: 50px;
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        .nav-title {
+            color: #86C232;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .nav-title:hover {
+            color: #61892F;
+            text-decoration: none;
+        }
+
+        .nav-link {
+            color: #86C232;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .nav-link:hover {
+            color: #61892F;
+            text-decoration: none;
+        }
+
+        .header-page-text {
+            color: white;
+            margin-top: 4rem;
+        }
+
+        .header-page-text .name-accent {
+            color: #86C232;
+            margin-top: 4rem;
+        }
+
+        .header-page-text .statement {
+            color: white;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-section {
+            color: white;
+            margin-top: 4rem;
+        }
+
+        .portfolio-section .portfolio-title {
+            color: #86C232;
+        }
+
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity 0.5s ease;
+        }
+
+        .fade-enter-from,
+        .fade-leave-to {
+            opacity: 0;
+        }
+
+        footer p {
+            color: white;
+        }
+
+        footer a {
+            color: #86C232;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        footer a:hover {
+                color: #61892F;
+                text-decoration: none;
+        }
+
+
+        @media only screen and (max-width: 600px) {
+            .nav-icon {
+                display: none;
+            }
+
+            .nav-title {
+                color: #86C232;
+                text-decoration: none;
+                display: flex;
+                justify-content: center;
+                vertical-align: center;
+                margin: 0 auto 1rem;
+            }
+
+            .nav-title:hover {
+                color: #61892F;
+                text-decoration: none;
+            }
+
+            .nav-link {
+                color: #86C232;
+                text-decoration: none;
+                text-align: center;
+                margin-top: -.5rem;
+            }
+
+            .nav-link:hover {
+                color: #61892F;
+                text-decoration: none;
+                text-align: center;
+            }
+
+            .header-page-text {
+                color: white;
+                margin-top: 0;
+            }
+
+            .header-page-text .name-accent {
+                margin-top: 1rem;
+            }
+
+            .portfolio-section {
+                margin-top: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <div class="container-lg">
+        <div class="row justify-content-center pt-3">
+            <div class="col-md-8">
+                <a class="nav-title" href="#"><img class="nav-icon" src="https://i.imgur.com/e5Hrhxz.jpg">Stanley Mohr (site still under construction)</a>
+            </div>
+            <div class="col-md-1">
+                <a class="nav-link" v-on:click="showHome">Home</a>
+            </div>
+            <div class="col-md-1">
+                <a class="nav-link" v-on:click="showAbout">About</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- About -->
+    <section v-show="!onHome">
+        <div class="container-lg" style="margin-top: 4rem">
+            <div class="row justify-content-center pt-3">
+                <div class="col-md-10">
+                    <p style="color: white">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget gravida justo. Donec commodo porta risus. Quisque vitae nunc ligula. Nunc pellentesque, ipsum ac pellentesque suscipit, quam nunc pulvinar sem, in iaculis sem risus vel purus. Pellentesque efficitur vestibulum nulla vel sagittis. Donec velit nunc, porta et pulvinar sit amet, volutpat facilisis purus. Nam eu lectus eu libero bibendum pulvinar at eu ipsum. Pellentesque sapien tellus, fringilla tempor bibendum ut, porta non est. Quisque maximus scelerisque ipsum nec varius. Integer eu lobortis velit, ut malesuada ligula. Suspendisse potenti. Praesent vitae gravida felis. Vivamus vel leo at orci convallis gravida. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consequat tempus lacus, nec pulvinar ipsum tempus quis. Donec congue, nibh nec lobortis tincidunt, dui nisl placerat libero, quis facilisis magna turpis vel eros.
+
+                        Integer molestie sem ac massa laoreet, in consequat leo eleifend. Ut vehicula egestas tellus, id volutpat nibh mollis sit amet. Quisque ultricies non nunc non condimentum. Praesent justo turpis, tempus id efficitur eget, aliquet ut lacus. Etiam blandit, enim nec auctor iaculis, orci lectus dictum elit, sed laoreet urna ipsum id felis. Donec arcu metus, imperdiet a aliquam vel, accumsan sed leo. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus justo urna, congue in diam non, elementum hendrerit nisi. Suspendisse potenti. Morbi efficitur fermentum nisl, sit amet semper quam ultricies et. Nullam a tristique sem. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur metus eros, mollis a tempor ut, suscipit at lectus. Nullam eu erat in ante maximus aliquet.
+
+                        Vestibulum magna quam, sodales eu ultrices sit amet, iaculis eu turpis. Maecenas et tellus at purus dictum facilisis. Aliquam diam nisl, porttitor et ultrices et, ullamcorper vel dui. Vestibulum et ullamcorper metus, sit amet blandit tellus. Curabitur sit amet rhoncus augue, et hendrerit augue. Nulla orci augue, cursus vitae rutrum nec, egestas sit amet metus. Nulla facilisi. Donec elementum, lectus at pulvinar sollicitudin, purus massa aliquet ligula, at lacinia lorem mi in metus. In tempus vulputate nisi in tincidunt. Nulla porta leo vitae neque sollicitudin dictum. Curabitur finibus magna quis nulla consectetur hendrerit.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Home -->
+    <transition appear name="fade">
+    <header-page v-show="onHome"></header-page>
+    </transition>
+
+
+    <section v-show="onHome" class="portfolio-section">
+        <div class="container-lg">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <h2 class="portfolio-title">
+                        My Projects
+                    </h2>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <portfolio-card
+                        v-for="project in projects"
+                        :pcard="project"
+                        :key="project.id"
+                ></portfolio-card>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row justify-content-center" style="margin-top: 4rem; margin-bottom: 3rem">
+                <div class="col-md-10 text-center">
+                    <p >Stanley Mohr 2021</p>
+                    <p>
+                        Site created using <a href="https://v3.vuejs.org/">Vue.js 3.0</a> and <a href="https://getbootstrap.com/">Bootstrap 5.1.1</a>.
+                    </p>
+                    <a href="https://github.com/SMCSBeavers">
+                        <img src="https://i.imgur.com/5MNdbvV.png" alt="Github">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+    let app = Vue.createApp({
+        data() {
+            return {
+                projects: [
+                    {
+                        id: 0,
+                        title: 'Lorem Ipsum Dolor',
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi ipsum faucibus vitae aliquet nec ullamcorper sit amet risus. Ac turpis egestas integer eget aliquet.',
+                        image: 'https://images.unsplash.com/photo-1557511073-f7ba371b651f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1364&q=80'
+                    },
+                    {
+                        id: 1,
+                        title: 'Lorem Ipsum Dolor',
+                        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi ipsum faucibus vitae aliquet nec ullamcorper sit amet risus. Ac turpis egestas integer eget aliquet.',
+                        image: 'https://images.unsplash.com/photo-1557511073-f7ba371b651f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1364&q=80'
+                    }
+                ],
+                onHome: true
+            }
+        },
+        methods: {
+            showHome: function() {
+                if (this.onHome === false) {
+                    this.onHome = !this.onHome
+                }
+            },
+            showAbout: function() {
+                if (this.onHome === true) {
+                    this.onHome = !this.onHome
+                }
+            }
+        }
+    })
+    app.component('nav-bar', {
+        template: `
+
+        `
+    })
+    app.component('header-page', {
+        template: `
+            <section class="header-page-text">
+                <div class="container-lg">
+                    <div class="row justify-content-center pt-3">
+                        <div class="col-md-10">
+                            <p class="name-accent">Hello, my name is Stanley.</p>
+                            <h1 class="statement">I am a software developer.</h1>
+                            <p>
+                                Currently, I am a Computer Science student at Oregon State University graduating in Winter 2021.
+                                My specialize in full stack development and database management.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        `
+    })
+    app.component('portfolio-card',{
+        props:['pcard'],
+        template: `
+            <div class="col-md-3 mt-1">
+              <a href="#">
+                <div class="card bg-dark text-white">
+                  <img :src="pcard.image" class="card-img" style="max-height: 300px; object-fit: cover" alt="...">
+                      <div class="card-img-overlay">
+                        <h5 class="card-title">{{ pcard.title }}</h5>
+                        <p class="card-text">{{ pcard.text }}</p>
+                      </div>
+                </div>
+              </a>
+            </div>
+        `
+    })
+    app.mount('#app')
+</script>
+</body>
+</html>
