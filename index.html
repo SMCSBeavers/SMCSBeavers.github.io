@@ -12,7 +12,6 @@
     <title>Stanley Mohr</title>
     <style>
         body {
-            background-color: #222629;
             font-family: 'Roboto', sans-serif;
         }
 
@@ -24,19 +23,26 @@
             color: #86C232;
             text-decoration: none;
             border: none;
-            background-color: #222629;
+            background-color: white;
         }
 
         .page-link:hover {
             color: #61892F;
             text-decoration: none;
-            background-color: #222629;
+            background-color: white;
         }
 
         .page-link:active {
-            background-color: #222629;
+            background-color: white;
             color: #61892F;
             text-decoration: none;
+        }
+
+        .language-thumbnail {
+            height: 30px;
+            width: auto;
+            margin-left: 2px;
+            margin-right: 2px
         }
 
     </style>
@@ -51,7 +57,7 @@
     </p> -->
     <!-- route outlet -->
     <!-- component matched by the route will render here -->
-    <router-view :cards="projects"></router-view>
+    <router-view></router-view>
 </div>
 
 <!-- Bootstrap and Vuejs -->
@@ -61,35 +67,20 @@
 
 <script>
     const Home = {
-        props: ['cards'],
         template:
             `<header>
                 <div class="container">
-                    <div class="row justify-content-center">
-                         <div class="col-md-6">
-                             <h1 class="text-center" style="color: #86C232">Stanley Mohr</h1>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                         <div class="col-md-2 text-center">
-                             <router-link class="page-link" to="/">Home</router-link>
-                        </div>
-                        <div class="col-md-2 text-center">
-                             <router-link class="page-link" to="/about">About</router-link>
-                        </div>
-                    </div>
+                    <title-component></title-component>
+                    <about-me></about-me>
+                    <proficiencies-section></proficiencies-section>
+                    <projects-section></projects-section>
                 </div>
             </header>
-            <project-card
-            v-for="project in cards"
-            :project="project"
-            :key="project.id"
-            ></project-card>
     ` }
     const About = { template: '<div>About</div>' }
 
     const routes = [
-        { path: '/', component: Home, props: true },
+        { path: '/', component: Home },
         { path: '/about', component: About },
     ]
 
@@ -98,7 +89,89 @@
         routes,
     })
 
-    const PersonalWebsite = {
+    const app = Vue.createApp({})
+
+    app.component('title-component',{
+        data() {
+            return {
+                name: 'Stanley Mohr',
+                role: 'Software Developer'
+            }
+        },
+        template: `
+          <div class="row justify-content-center" style="padding-top: 2rem; padding-bottom: .05rem">
+              <div class="col-md-6">
+                  <h1 class="text-center fw-bold">{{ name }}</h1>
+              </div>
+          </div>
+          <div class="row justify-content-center" style="padding-bottom: 4rem">
+              <div class="col-md-6">
+                  <h5 class="text-center">{{ role }}</h5>
+              </div>
+          </div>
+        `
+    })
+
+    app.component('about-me', {
+        data() {
+            return {
+                aboutText: 'Currently, I am a Computer Science student at Oregon State University graduating in Winter 2021. I specialize in full stack development and database management.'
+            }
+        },
+        template: `
+          <div class="row justify-content-center">
+              <div class="col-md-6">
+                <h6 class="px-4 fw-bold">About</h6>
+              </div>
+          </div>
+          <div class="row justify-content-center">
+              <div class="col-md-6">
+                  <p class="px-4">{{ aboutText }}</p>
+              </div>
+          </div>
+          <div class="row justify-content-center">
+              <div class="col-md-6 text-center" style="padding-bottom: 1rem">
+                 <router-link class="page-link" to="/about">Learn more</router-link>
+              </div>
+          </div>
+        `
+    })
+
+    app.component('proficiencies-section', {
+        data() {
+            return {
+                vueLogo: 'https://i.imgur.com/qwp7jvg.png',
+                jsLogo: 'https://seeklogo.com/images/J/javascript-js-logo-2949701702-seeklogo.com.png',
+                pythonLogo: 'https://seeklogo.com/images/P/python-logo-A32636CAA3-seeklogo.com.png',
+                sqlLogo: 'https://seeklogo.com/images/M/mysql-logo-69B39F7D18-seeklogo.com.png',
+                cLogo: 'https://seeklogo.com/images/C/c-logo-672525892C-seeklogo.com.png',
+                cPlusLogo: 'https://seeklogo.com/images/C/c-logo-43CE78FF9C-seeklogo.com.png',
+                nodeLogo: 'https://seeklogo.com/images/N/nodejs-logo-FBE122E377-seeklogo.com.png',
+                javaLogo: 'https://seeklogo.com/images/J/java-logo-7833D1D21A-seeklogo.com.png'
+            }
+        },
+        template: `
+          <div class="row justify-content-center">
+              <div class="col-md-6 pb-1">
+                <h6 class="px-4 fw-bold">My Proficiencies</h6>
+              </div>
+          </div>
+          <div class="row justify-content-center" style="padding-bottom: 4rem">
+              <div class="col-md-6 text-center">
+                    <img class="language-thumbnail" :src="pythonLogo" alt="python">
+                    <img class="language-thumbnail" :src="jsLogo" alt="js">
+                    <img class="language-thumbnail" :src="vueLogo" alt="vue.js">
+                    <img class="language-thumbnail" :src="nodeLogo" alt="node">
+                    <img class="language-thumbnail" :src="sqlLogo" alt="sql">
+                    <img class="language-thumbnail" :src="cLogo" alt="c">
+                    <img class="language-thumbnail" :src="cPlusLogo" alt="c++">
+                    <img class="language-thumbnail" :src="javaLogo" alt="java">
+              </div>
+          </div>
+        `
+    })
+
+    app.component('projects-section', {
         data() {
             return {
                 projects: [
@@ -114,32 +187,32 @@
                         text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mi ipsum faucibus vitae aliquet nec ullamcorper sit amet risus. Ac turpis egestas integer eget aliquet.',
                         image: 'https://images.unsplash.com/photo-1557511073-f7ba371b651f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1364&q=80'
                     }
-                ],
-                name: 'Stanley Mohr'
-                // statement: 'I am a software developer.',
-                // aboutStatement: 'Currently, I am a Computer Science student at Oregon State University graduating in Winter 2021. I specialize in full stack development and database management.'
+                ]
             }
-        }
-    }
+        },
+        template: `
+          <div class="row justify-content-center">
+              <div class="col-md-6">
+                <h6 class="px-4 fw-bold">My Projects</h6>
+              </div>
+          </div>
+          <project-component
+            v-for="project in projects"
+            :title = 'project.title'
+            :image = 'project.image'
+            :text = 'project.text'
+            :key = 'project.id'
+            ></project-component>
+        `
+    })
 
-    const app = Vue.createApp(PersonalWebsite)
-
-    app.component('project-card', {
-        props: ['project'],
-        template:`
-          <div class="container">
-              <div class="row justify-content-center">
-                <div class="col-md-3 mt-1">
-                  <a href="#">
-                    <div class="card bg-dark text-white">
-                      <img :src="project.image" class="card-img" style="max-height: 300px; object-fit: cover" alt="...">
-                      <div class="card-img-overlay">
-                        <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">{{ project.text }}</p>
-                      </div>
-                    </div>
-                  </a>
-                </div>
+    app.component('project-component', {
+        props: ['title', 'image', 'text'],
+        template: `
+          <div class="row justify-content-center">
+              <div class="col-md-6">
+                <img class="img-fluid px-4" style="max-height: 200px" :src="image" alt="project">
+                <p>{{ text }}</p>
               </div>
           </div>
         `
