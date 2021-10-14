@@ -74,23 +74,26 @@
             text-decoration: none;
         }
 
-
-        .page-link {
-            color: #86C232;
+        .site-page-link {
+            color: white;
             text-decoration: none;
+            font-size: 14px;
             border: none;
-            background-color: white;
+            background-color: black;
+            padding: 5px 15px;
+            float: left;
+            border-radius: 5px;
         }
 
-        .page-link:hover {
-            color: #61892F;
+        .site-page-link:hover {
+            color: white;
             text-decoration: none;
-            background-color: white;
+            background-color: #4d4d4d;
         }
 
-        .page-link:active {
-            background-color: white;
-            color: #61892F;
+        .site-page-link:active {
+            background-color: #4d4d4d;
+            color: white;
             text-decoration: none;
         }
 
@@ -134,32 +137,26 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/vue@next"></script>
 <script src="https://unpkg.com/vue-router@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
 
 <script>
-    const Landing = {
-        template:
-            `<header>
-                <div class="container">
-                    <title-component></title-component>
-                    <about-me></about-me>
-                    <proficiencies-section></proficiencies-section>
-                    <projects-section></projects-section>
-                </div>
-            </header>
-    ` }
     const About = {
+        data() {
+            return {
+                pageTitle: 'About Me'
+            }
+        },
         template: `
-            <div class="row justify-content-center">
-                   <div class="col-md-8 py-3 text-center">
-                        <h2>About Page</h2>
-                        <router-link class="home-page-link-text" to="/">Go to Home</router-link>
-                    </div>
-            </div>
+          <div class="container" style="padding-top: 4rem; padding-bottom: 4rem">
+              <page-header :pageTitle="pageTitle"></page-header>
+              <about-component></about-component>
+          </div>
     `}
+
     const Home = {
         template: `
             <div class="container-fluid">
-                <div class="row justify-content-center" style="padding-top: 7rem; padding-bottom: 7rem">
+                <div class="row justify-content-center" style="padding-top: 4rem; padding-bottom: 4rem">
                 <title-name></title-name>
                 <title-photo></title-photo>
                 </div>
@@ -168,15 +165,19 @@
     }
 
     const Portfolio = {
-        data () {
+        data() {
             return {
+                pageTitle: 'My Work and Projects',
                 posts: [
                     {
                         id: 0,
                         title: 'Product Landing Pages',
+                        project: 'Frey Municipal Software',
                         type: 'Freelance Development',
-                        text: 'Build landing pages for Frey Municipal Software products to be used a click through landing page for paid media or email advertising.',
+                        text: 'Built landing pages for Frey Municipal Software products to be used a click through landing page for paid media or email advertising.',
                         image: 'https://i.imgur.com/KZFkpwa.png',
+                        link: 'https://www.freymunicipalsoftware.com/CUBIC_landing_page',
+                        date: '2021-07-16T19:03:57.000Z',
                         profic: ['https://seeklogo.com/images/H/html5-logo-EF92D240D7-seeklogo.com.png', 'https://seeklogo.com/images/C/css-3-logo-AF06D75231-seeklogo.com.png', 'https://seeklogo.com/images/B/bootstrap-5-logo-85A1F11F4F-seeklogo.com.png']
                     }
                 ]
@@ -184,7 +185,7 @@
         },
         template: `
         <div class="container" style="padding-top: 4rem; padding-bottom: 4rem">
-            <portfolio-header></portfolio-header>
+            <page-header :pageTitle="pageTitle"></page-header>
             <portfolio-post
                 v-for="post in posts"
                 :title = 'post.title'
@@ -192,6 +193,9 @@
                 :text = 'post.text'
                 :image = 'post.image'
                 :profic = 'post.profic'
+                :link = 'post.link'
+                :project = 'post.project'
+                :date = 'post.date'
                 :key = 'post.id'
             ></portfolio-post>
         </div>
@@ -201,7 +205,6 @@
     const routes = [
         { path: '/', component: Home },
         { path: '/about', component: About },
-        { path: '/landing', component: Landing },
         { path: '/portfolio', component: Portfolio },
     ]
 
@@ -220,7 +223,6 @@
             }
         },
         template: `
-
         <div class="col-md-4 align-self-center">
               <h1 class="fs-4">I'm {{ name }}.</h1>
               <h2 class="fs-1 fw-bold">
@@ -262,16 +264,12 @@
         }
     )
 
-    app.component('portfolio-header', {
-        data() {
-            return {
-                image: 'https://i.imgflip.com/149j18.jpg'
-            }
-        },
+    app.component('page-header', {
+        props: ['pageTitle'],
         template: `
           <div class="row justify-content-center">
               <div class="col-md-8">
-                <h2 class="text-center">My Work and Projects</h2>
+                <h2 class="text-center">{{ pageTitle }}</h2>
                 <router-link class="home-page-link-text" to="/">Back to Home</router-link>
               </div>
           </div>
@@ -279,7 +277,7 @@
     })
 
     app.component('portfolio-post', {
-        props: ['title', 'type', 'text', 'image', 'profic'],
+        props: ['title', 'type', 'project', 'text', 'link', 'image', 'profic', 'date'],
         template: `
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -289,16 +287,57 @@
                     <div class="card-body">
                       <p class="card-text"><small class="text-muted">{{ type }}</small></p>
                       <h5 class="card-title">{{ title }}</h5>
+                      <h6 class="card-title text-muted">{{ project }}</h6>
                       <p class="card-text">{{ text }}</p>
                       <div class="card-text"
                         v-for="item in profic"
                          :item="item.profic"
                       ><img class="language-thumbnail" :src="item" alt="proficiency"></div>
+                      <a class="site-page-link" :href="link"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="white" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                        <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+                      </svg> Visit Site</a>
                     </div>
+                    <br>
                   </div>
                   <div class="col-md-4">
                     <img :src="image" class="img-fluid rounded-end px-3 py-3" alt="...">
                   </div>
+                </div>
+                <div class="card-footer text-muted">
+                  <p class="card-text"><small class="text-muted">{{ dateConvert(date) }}</small></p>
+                </div>
+              </div>
+            </div>
+        </div>
+        `,
+        methods: {
+            dateConvert(date) {
+                return moment(this.date).format('LL');
+            }
+        }
+    })
+
+    app.component('about-component', {
+        data() {
+            return {
+                image: 'https://i.imgur.com/e5Hrhxz.jpg',
+                textArr: [
+                    { paragraph: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut scelerisque lorem. In a condimentum nibh. Nunc et velit efficitur nulla semper sodales non sit amet dui. Morbi suscipit vel magna ut lobortis. Proin iaculis sollicitudin molestie. Sed condimentum ex nisl, sed consectetur sem euismod sed. Duis pretium gravida sapien, nec eleifend odio sodales quis. Nam fringilla commodo condimentum. Cras varius, lacus sed vehicula commodo, turpis ex tincidunt urna, vel viverra elit ex pulvinar tortor. Maecenas ornare ornare lacus, at viverra elit venenatis ornare.'},
+                    { paragraph: 'Aliquam blandit ex et suscipit vehicula. Praesent consectetur viverra fermentum. In et interdum massa, quis dignissim metus. Vestibulum quam leo, luctus placerat tortor vel, lobortis mattis felis. Sed vitae lectus quis dolor cursus imperdiet at in erat. Aliquam lacinia lorem rutrum augue luctus, non placerat metus cursus. Quisque vitae mi ac lorem condimentum tincidunt et in nunc. Suspendisse fermentum sapien eget egestas efficitur. Aenean malesuada luctus turpis, vel tempus urna pharetra scelerisque. Suspendisse commodo maximus luctus. Duis fermentum cursus ex nec placerat. In ac malesuada mauris, imperdiet scelerisque arcu. Nunc in aliquet augue.'}
+                ]
+            }
+        },
+        template: `
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+              <div class="card mb-3 mx-1" style="max-width: 800px;">
+                <img :src="image" style="border-radius: 50%; width: 150px" class="img-fluid mx-auto mt-3" alt="my image">
+                <div class="card-body"
+                     v-for="paragraph in textArr"
+                     :text="paragraph"
+                     :key="paragraph.paragraph"
+                ><p class="card-text" style="text-indent: 30px;">{{ paragraph.paragraph }}</p>
                 </div>
               </div>
             </div>
@@ -307,52 +346,6 @@
     })
 
     /* OLD PROTOTYPE */
-
-    app.component('title-component',{
-        data() {
-            return {
-                name: 'Stanley Mohr',
-                role: 'Software Developer'
-            }
-        },
-        template: `
-          <div class="row justify-content-center" style="padding-top: 2rem; padding-bottom: .05rem">
-              <div class="col-md-6">
-                  <h1 class="text-center fw-bold">{{ name }}</h1>
-              </div>
-          </div>
-          <div class="row justify-content-center" style="padding-bottom: 4rem">
-              <div class="col-md-6">
-                  <h5 class="text-center">{{ role }}</h5>
-              </div>
-          </div>
-        `
-    })
-
-    app.component('about-me', {
-        data() {
-            return {
-                aboutText: 'Currently, I am a Computer Science student at Oregon State University graduating in Winter 2021. I specialize in full stack development and database management.'
-            }
-        },
-        template: `
-          <div class="row justify-content-center">
-              <div class="col-md-6">
-                <h6 class="px-4 fw-bold">About</h6>
-              </div>
-          </div>
-          <div class="row justify-content-center">
-              <div class="col-md-6">
-                  <p class="px-4">{{ aboutText }}</p>
-              </div>
-          </div>
-          <div class="row justify-content-center">
-              <div class="col-md-6 text-center" style="padding-bottom: 1rem">
-                 <router-link class="page-link" to="/about">Learn more</router-link>
-              </div>
-          </div>
-        `
-    })
 
     app.component('proficiencies-section', {
         data() {
@@ -383,72 +376,6 @@
                     <img class="language-thumbnail" :src="cLogo" alt="c">
                     <img class="language-thumbnail" :src="cPlusLogo" alt="c++">
                     <img class="language-thumbnail" :src="javaLogo" alt="java">
-              </div>
-          </div>
-        `
-    })
-
-    app.component('projects-section', {
-        data() {
-            return {
-                projects: [
-                    {
-                        id: 0,
-                        title: 'Product Landing Pages',
-                        client: 'Frey Municipal Software',
-                        type: 'Freelance Development',
-                        text: 'Build landing pages for Frey Municipal Software products to be used a click through landing page for paid media or email advertising.',
-                        image1: 'https://i.imgur.com/KZFkpwa.png',
-                        image2: 'https://i.imgur.com/bS2CEet.png'
-                    }
-                ]
-            }
-        },
-        template: `
-          <div class="row justify-content-center">
-              <div class="col-md-6">
-                <h6 class="px-4 fw-bold pb-4">My Work</h6>
-              </div>
-          </div>
-          <project-component
-            v-for="project in projects"
-            :title = 'project.title'
-            :client = 'project.client'
-            :image1 = 'project.image1'
-            :image2 = 'project.image2'
-            :text = 'project.text'
-            :type = 'project.type'
-            :key = 'project.id'
-            ></project-component>
-        `
-    })
-
-    app.component('project-component', {
-        props: ['title', 'type', 'client', 'image1','image2', 'text'],
-        template: `
-          <div class="row justify-content-center mx-2 mb-3">
-              <div class="col-md-6" style="border-radius: 5px; background-color:lightgray ">
-              <p class="pt-2" style="color: gray">{{ type }}</p>
-                <h5 class="mx-2 text-center fw-bold py-1">{{ title }}</h5>
-                <h6 class="text-center pb-2" style="color: gray">{{ client }}</h6>
-                  <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                      <div class="carousel-item active">
-                        <img :src="image1" style="max-height: 300px" class="img-fluid mx-auto d-block" alt="...">
-                      </div>
-                      <div class="carousel-item">
-                        <img :src="image2" style="max-height: 300px" class="img-fluid mx-auto d-block" alt="...">
-                      </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                      <span class="visually-hidden">Next</span>
-                    </button>
-                  </div>
-                <p class="mx-2 pt-2">{{ text }}</p>
               </div>
           </div>
         `
