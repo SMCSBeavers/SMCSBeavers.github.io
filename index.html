@@ -138,6 +138,7 @@
 <script src="https://unpkg.com/vue@next"></script>
 <script src="https://unpkg.com/vue-router@4"></script>
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 <script>
     const About = {
@@ -168,35 +169,30 @@
         data() {
             return {
                 pageTitle: 'My Work and Projects',
-                posts: [
-                    {
-                        id: 0,
-                        title: 'Product Landing Pages',
-                        project: 'Frey Municipal Software',
-                        type: 'Freelance Development',
-                        text: 'Built landing pages for Frey Municipal Software products to be used a click through landing page for paid media or email advertising.',
-                        image: 'https://i.imgur.com/KZFkpwa.png',
-                        link: 'https://www.freymunicipalsoftware.com/CUBIC_landing_page',
-                        date: '2021-07-16T19:03:57.000Z',
-                        profic: ['https://seeklogo.com/images/H/html5-logo-EF92D240D7-seeklogo.com.png', 'https://seeklogo.com/images/C/css-3-logo-AF06D75231-seeklogo.com.png', 'https://seeklogo.com/images/B/bootstrap-5-logo-85A1F11F4F-seeklogo.com.png']
-                    }
-                ]
+                projects: null
             }
+        },
+        mounted () {
+        axios.get('https://stan-personal-website.herokuapp.com/projects')
+            .then(response => {
+                this.projects = response.data.projects
+            })
+            .catch(error => console.log(error))
         },
         template: `
         <div class="container" style="padding-top: 4rem; padding-bottom: 4rem">
             <page-header :pageTitle="pageTitle"></page-header>
             <portfolio-post
-                v-for="post in posts"
-                :title = 'post.title'
-                :type = 'post.type'
-                :text = 'post.text'
-                :image = 'post.image'
-                :profic = 'post.profic'
-                :link = 'post.link'
-                :project = 'post.project'
-                :date = 'post.date'
-                :key = 'post.id'
+                v-for="project in projects"
+                :title = 'project.p_title'
+                :type = 'project.p_type'
+                :text = 'project.p_text'
+                :image = 'project.p_image'
+                :profic = 'project.p_profic'
+                :link = 'project.p_link'
+                :project = 'project.p_project'
+                :date = 'project.p_date'
+                :key = 'project.p_id'
             ></portfolio-post>
         </div>
         `
